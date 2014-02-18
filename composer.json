@@ -1,0 +1,29 @@
+{
+    "name": "flynsarmy/orchestra-cms",
+    "description": "",
+    "authors": [
+        {
+            "name": "Flyn San",
+            "email": "flynsarmy@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0",
+        "illuminate/support": "4.0.*"
+    },
+    "require-dev": {
+        "orchestra/testbench": "2.0.*"
+    },
+    "autoload": {
+        "classmap": [
+            "src/migrations"
+        ],
+        "files": [
+            "src/Flynsarmy/OrchestraCms/helpers.php"
+        ],
+        "psr-0": {
+            "Flynsarmy\\OrchestraCms\\": "src/"
+        }
+    },
+    "minimum-stability": "dev"
+}

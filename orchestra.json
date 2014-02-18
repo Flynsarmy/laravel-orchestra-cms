@@ -1,0 +1,14 @@
+{
+	"name": "Orchestra CMS",
+	"description": "Orchestra CMS Extension",
+	"author": "Flyn San",
+	"url": "https://github.com/flynsarmy/laravel-orchestra-cms",
+	"version": "1.0.0",
+	"config": {
+		"handles": "/",
+		"configurable": false
+	},
+	"provide": [
+		"Flynsarmy\\OrchestraCms\\OrchestraCmsServiceProvider"
+	]
+}

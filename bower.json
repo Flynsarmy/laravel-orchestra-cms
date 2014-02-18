@@ -1,0 +1,7 @@
+{
+	"name": "Orchestra CMS",
+	"version": "1.0.0",
+	"dependencies": {
+		"ace-builds": "ajaxorg/ace-builds"
+	}
+}

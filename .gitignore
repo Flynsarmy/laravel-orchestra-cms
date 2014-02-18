@@ -1,0 +1,59 @@
+public/vendor/ace-builds/ace-builds/*.html
+public/vendor/ace-builds/src/*
+public/vendor/ace-builds/src-min/*
+public/vendor/ace-builds/src-noconflict/*
+public/vendor/ace-builds/demo/*
+public/vendor/ace-builds/textarea/*
+public/vendor/ace-builds/kitchen-sink/*
+public/vendor/dropzone/downloads/dropzone-amd-module.js
+public/vendor/dropzone/downloads/dropzone.js
+
+# Package managers
+node_modules/*
+bower_components/*
+
+# Composer
+vendor/*
+composer.phar
+composer.lock
+
+# Code Coverage
+build/coverage/*
+
+# always-ignore extensionsalways-ignore extensions
+*.diff
+*.err
+*.orig
+*.log
+*.rej
+*.swo
+*.swp
+*.vi
+*~
+*.sass-cache
+
+# OS or Editor folders
+.DS_Store
+Thumbs.db
+.cache
+.project
+.settings
+.tmproj
+*.esproj
+nbproject
+
+# Dreamweaver added files
+_notes
+dwsync.xml
+
+# Komodo
+*.komodoproject
+.komodotools
+
+# Folders to ignore
+.hg
+.svn
+.CVS
+intermediate
+publish
+.idea
