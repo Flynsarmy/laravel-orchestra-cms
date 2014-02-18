@@ -5,25 +5,6 @@ use Flynsarmy\OrchestraCms\Facades\Story;
 
 class StoryTellerTest extends TestCase
 {
-    public function testSlugify()
-    {
-        // Spaces to dash
-        $title = 'this is a space test';
-        $this->assertEquals(Story::slugify($title), 'this-is-a-space-test');
-
-        // Upper to lower case
-        $title = 'This Is A CapitaliZation Test';
-        $this->assertEquals(Story::slugify($title), 'this-is-a-capitalization-test');
-
-        // Special character removal
-        $title = 'This: is "a string" with special - characters!';
-        $this->assertEquals(Story::slugify($title), 'this-is-a-string-with-special-characters');
-
-        // No text to n-a
-        $title = '';
-        $this->assertEquals(Story::slugify($title), 'n-a');
-    }
-
     public function testPermalink()
     {
         $this->app['config']->set("flynsarmy/orchestra-cms::permalink", "{slug}");

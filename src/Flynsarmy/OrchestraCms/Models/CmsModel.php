@@ -3,6 +3,7 @@
 use App;
 use File;
 use Config;
+use Str;
 use Illuminate\Filesystem\FileNotFoundException;
 use Illuminate\Database\Eloquent\Model as Eloquent;
 use Flynsarmy\OrchestraCms\Facades\Story;
@@ -88,7 +89,7 @@ class CmsModel extends Eloquent
         if ( empty($this->content_path) )
         {
             $i = 1;
-            $relpath = "{$type_dir}/" . Story::slugify($this->title);
+            $relpath = "{$type_dir}/" . Str::slug($this->title);
             $abspath = "{$base_path}/{$relpath}";
 
             if ( File::isDirectory($abspath) )
