@@ -30,7 +30,7 @@ class Storyteller
      */
     public function permalink($content = null)
     {
-        $format = $this->app['config']->get("flynsarmy/orchestra-cms::permalink", '{slugz}');
+        $format = $this->app['config']->get("flynsarmy/orchestra-cms::permalink", '{slug}');
 
         $permalinks = array(
             'id'    => $content->id,
