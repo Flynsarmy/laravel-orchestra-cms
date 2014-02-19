@@ -12,7 +12,7 @@
         "illuminate/support": "4.0.*"
     },
     "require-dev": {
-        "orchestra/testbench": "2.0.*"
+        "way/laravel-test-helpers": "dev-master"
     },
     "autoload": {
         "classmap": [
