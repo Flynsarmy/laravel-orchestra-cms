@@ -5,8 +5,6 @@ use Flynsarmy\OrchestraCms\Facades\Story;
 
 class Page extends CmsModel
 {
-    protected $guarded = ['created_at', 'content_path'];
-
     /**
      * The database table used by the model.
      *
@@ -14,7 +12,12 @@ class Page extends CmsModel
      */
     protected $table = 'orchestra_cms_pages';
 
-    protected $content_string = null;
+    /**
+     * The folder in our public theme directory all views will be saved into
+     *
+     * @var string
+     */
+    protected $view_base_path = 'pages';
 
     /**
      * Belongs to relationship with Template.

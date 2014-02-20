@@ -7,9 +7,6 @@ use Flynsarmy\OrchestraCms\Models\Partial;
 use Flynsarmy\OrchestraCms\Repositories\DbTemplate;
 use Flynsarmy\OrchestraCms\Repositories\DbPage;
 use Flynsarmy\OrchestraCms\Repositories\DbPartial;
-use Flynsarmy\OrchestraCms\Providers\FileTemplateStorage;
-use Flynsarmy\OrchestraCms\Providers\FilePageStorage;
-use Flynsarmy\OrchestraCms\Providers\FilePartialStorage;
 use Orchestra\Theme;
 
 class OrchestraCmsServiceProvider extends ServiceProvider
@@ -55,25 +52,6 @@ class OrchestraCmsServiceProvider extends ServiceProvider
         $this->app->bind(
             'Flynsarmy\OrchestraCms\Repositories\Interfaces\Partial', function($app) {
                 return new DbPartial(new Partial);
-            }
-        );
-
-        /*
-         * Model storage repositories
-         */
-        $this->app->bind(
-            'Flynsarmy\OrchestraCms\Providers\Interfaces\TemplateStorage', function($app) {
-                return new FileTemplateStorage(Theme::getTheme(), 'templates');
-            }
-        );
-        $this->app->bind(
-            'Flynsarmy\OrchestraCms\Providers\Interfaces\PageStorage', function($app) {
-                return new FilePageStorage(Theme::getTheme(), 'pages');
-            }
-        );
-        $this->app->bind(
-            'Flynsarmy\OrchestraCms\Providers\Interfaces\PartialStorage', function($app) {
-                return new FilePartialStorage(Theme::getTheme(), 'partials');
             }
         );
     }

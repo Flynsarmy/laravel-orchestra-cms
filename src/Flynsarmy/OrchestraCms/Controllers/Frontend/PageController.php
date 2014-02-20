@@ -50,7 +50,8 @@ class PageController extends Controller
         // Load OrchestraCms specific blade extensions like @partial() and @page()
         require_once __DIR__.'/../../../../blade-helpers.php';
 
-        $view = $template->getViewPath() . '.content';
+        $view_path = $template->storage()->view_path($template->content_path);
+        $view = $view_path . '.content';
 
         return Facile::view($view)->with($data)->render();
     }

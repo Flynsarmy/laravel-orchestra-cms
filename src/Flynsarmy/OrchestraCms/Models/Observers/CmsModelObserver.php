@@ -1,6 +1,6 @@
 <?php namespace Flynsarmy\OrchestraCms\Models\Observers;
 
-use App, File;
+use App, File, Str;
 use Orchestra\Theme;
 
 class CmsModelObserver
@@ -10,25 +10,23 @@ class CmsModelObserver
 		if ( !$model->theme )
 			$model->theme = Theme::getTheme();
 
-		$base_path = $model->getAbsContentBasePath( $model->theme );
-		$content_path = $model->getOrSetRelContentPath();
-		$abspath = "{$base_path}/{$content_path}";
-		$absfilepath = $abspath . '/content.blade.php';
+		if ( !$model->exists )
+			$model->set_content_path();
 
-		// Create templates directory
-		if ( !File::isDirectory($abspath) )
-			File::makeDirectory($abspath, 0777, true);
+		$abs_path = $model->storage()->abs_path($model->content_path);
+		$filepath = $abs_path . '/content.blade.php';
 
-		// Write template contents
-		File::put($absfilepath, $model->content);
+		if ( !File::isDirectory($abs_path) )
+			File::makeDirectory($abs_path, 0777, true);
+
+		File::put($filepath, $model->content);
 	}
 
 	public function deleteContent( $model )
 	{
-		$base_path = $model->getAbsContentBasePath( $model->theme );
-		$content_path = $model->getOrSetRelContentPath();
-		$abspath = "{$base_path}/{$content_path}";
+		$rel_path = $model->content_path;
+		$abs_path = $model->storage()->abs_path( $rel_path );
 
-		File::deleteDirectory( $abspath );
+		File::deleteDirectory( $abs_path );
 	}
 }

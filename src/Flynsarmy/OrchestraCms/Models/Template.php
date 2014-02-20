@@ -4,14 +4,19 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
 
 class Template extends CmsModel
 {
-    protected $guarded = ['created_at', 'content_path'];
-
     /**
      * The database table used by the model.
      *
      * @var string
      */
     protected $table = 'orchestra_cms_templates';
+
+    /**
+     * The folder in our public theme directory all views will be saved into
+     *
+     * @var string
+     */
+    protected $view_base_path = 'templates';
 
     /**
      * Belongs to relationship with Template.

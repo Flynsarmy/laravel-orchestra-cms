@@ -7,11 +7,23 @@ use Str;
 use Illuminate\Filesystem\FileNotFoundException;
 use Illuminate\Database\Eloquent\Model as Eloquent;
 use Flynsarmy\OrchestraCms\Facades\Story;
+use Flynsarmy\OrchestraCms\Providers\FileContentStorage;
 use Orchestra\Theme;
 
 class CmsModel extends Eloquent
 {
+    protected $guarded = ['created_at', 'content_path'];
+
+    /**
+     * The folder in our public theme directory all views will be saved into
+     *
+     * @var string
+     */
+    protected $view_base_path = '';
+
     protected $content_string = null;
+
+    private $_storage_provider;
 
     /**
      * Belongs to relationship with User.
@@ -46,16 +58,23 @@ class CmsModel extends Eloquent
      */
     public function getContentAttribute($value)
     {
+        // content_string will be null on first lookup - grab from the view file
+        // if it exists
         if ( $this->content_string === null )
         {
+            // View file exists. Grab contents
             if ( $this->content_path )
                 try {
-                    $filepath = $this->getAbsContentBasePath( $this->theme ) . '/' . $this->content_path . '/content.blade.php';
-                    $this->content_string = File::get($filepath);
+                    $abs_path = $this->storage()->abs_path( $this->content_path );
+                    $file_path = $abs_path . '/content.blade.php';
+
+                    $this->content_string = File::get( $file_path );
                 }
                 catch (FileNotFoundException $e) {
                     $this->content_string = '';
                 }
+            // No view file exists - this is probably a new record. Set the
+            // content to an empty string
             else
                 $this->content_string = '';
         }
@@ -63,47 +82,24 @@ class CmsModel extends Eloquent
         return $this->content_string;
     }
 
-    public function getViewPath()
-    {
-        return 'flynsarmy/orchestra-cms::' . str_replace('/', '.', $this->content_path);
-    }
-
-    public function getAbsContentBasePath( $theme )
-    {
-        if ( !$theme )
-            $theme = Theme::getTheme();
-
-        return App::make('path.public') . '/themes/' . $theme . '/packages/flynsarmy/orchestra-cms';
-    }
-
     /**
-     * Returns a unique pages/<slug>/content.blade.php
+     * Sets up and returns our content storage provider
      *
-     * @return string
+     * @return Flynsarmy\OrchestraCms\Providers\FileContentStorage
      */
-    public function getOrSetRelContentPath()
+    public function storage()
     {
-        $type_dir = strtolower(str_plural(class_basename(get_class($this))));
-        $base_path = $this->getAbsContentBasePath( $this->theme );
+        if ( !$this->_storage_provider )
+            $this->_storage_provider = new FileContentStorage(Theme::getTheme(), $this->view_base_path);
 
-        if ( empty($this->content_path) )
-        {
-            $i = 1;
-            $relpath = "{$type_dir}/" . Str::slug($this->title);
-            $abspath = "{$base_path}/{$relpath}";
+        return $this->_storage_provider;
+    }
 
-            if ( File::isDirectory($abspath) )
-            {
-                while ( File::isDirectory($abspath.'-'.$i) )
-                    $i++;
+    public function set_content_path()
+    {
+        $slug = Str::slug($this->title);
 
-                $relpath .= '-' . $i;
-            }
-
-            $this->content_path = $relpath;
-        }
-
-        return $this->content_path;
+        $this->content_path = $this->storage()->unique_rel_path($slug);
     }
 
     /**
