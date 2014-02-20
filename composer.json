@@ -1,6 +1,7 @@
 {
     "name": "flynsarmy/orchestra-cms",
-    "description": "",
+    "keywords": ["laravel", "cms", "orchestra-platform", "orchestral"],
+    "license": "MIT",
     "authors": [
         {
             "name": "Flyn San",
