@@ -1,6 +1,6 @@
-<?php namespace Flynsarmy\OrchestraCms\Interfaces;
+<?php namespace Flynsarmy\OrchestraCms\Repositories\Interfaces;
 
-interface ContentRepositoryInterface {
+interface Content {
 
 	public function create();
 	public function getAll(array $params = array());

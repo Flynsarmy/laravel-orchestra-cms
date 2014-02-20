@@ -7,7 +7,7 @@ use Orchestra\Support\Facades\Messages;
 use Orchestra\Support\Facades\Site;
 use Flynsarmy\OrchestraCms\Models\Template;
 use Flynsarmy\OrchestraCms\Validation\Page as PageValidator;
-use Flynsarmy\OrchestraCms\Interfaces\PageRepositoryInterface;
+use Flynsarmy\OrchestraCms\Repositories\Interfaces\Page as PageRepositoryInterface;
 
 class PageController extends ContentController
 {

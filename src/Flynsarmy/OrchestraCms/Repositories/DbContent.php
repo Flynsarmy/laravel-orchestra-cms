@@ -1,9 +1,9 @@
 <?php namespace Flynsarmy\OrchestraCms\Repositories;
 
-use Flynsarmy\OrchestraCms\Interfaces\PageRepositoryInterface;
+use Flynsarmy\OrchestraCms\Repositories\Interfaces\Content as RepositoryInterface;
 use Illuminate\Database\Eloquent\Model;
 
-class DbContentRepository {
+class DbContent implements RepositoryInterface {
 
     protected $model;
 

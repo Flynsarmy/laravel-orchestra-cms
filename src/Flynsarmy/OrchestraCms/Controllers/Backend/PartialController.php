@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\View;
 use Orchestra\Support\Facades\Messages;
 use Orchestra\Support\Facades\Site;
 use Flynsarmy\OrchestraCms\Validation\Partial as PartialValidator;
-use Flynsarmy\OrchestraCms\Interfaces\PartialRepositoryInterface;
+use Flynsarmy\OrchestraCms\Repositories\Interfaces\Partial as PartialRepositoryInterface;
 
 class PartialController extends ContentController
 {

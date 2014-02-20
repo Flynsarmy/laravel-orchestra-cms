@@ -2,10 +2,10 @@
 
 use \Config;
 use \View;
-use Flynsarmy\OrchestraCms\Repositories\DbContentRepository;
-use Flynsarmy\OrchestraCms\Interfaces\TemplateRepositoryInterface;
+use Flynsarmy\OrchestraCms\Repositories\DbContent;
+use Flynsarmy\OrchestraCms\Repositories\Interfaces\Template as TemplateRepositoryInterface;
 
-class DbTemplateRepository extends DbContentRepository implements TemplateRepositoryInterface {
+class DbTemplate extends DbContent implements TemplateRepositoryInterface {
 
 	public function create()
 	{

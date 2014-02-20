@@ -7,7 +7,7 @@ use Orchestra\Support\Facades\Messages;
 use Orchestra\Support\Facades\Site;
 use Flynsarmy\OrchestraCms\Exceptions\TemplateNotDeletedException;
 use Flynsarmy\OrchestraCms\Validation\Template as TemplateValidator;
-use Flynsarmy\OrchestraCms\Interfaces\TemplateRepositoryInterface;
+use Flynsarmy\OrchestraCms\Repositories\Interfaces\Template as TemplateRepositoryInterface;
 
 class TemplateController extends ContentController
 {
