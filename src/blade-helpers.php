@@ -1,7 +1,7 @@
 <?php
 
 use Flynsarmy\OrchestraCms\Exceptions\PartialNotFoundException;
-use Flynsarmy\OrchestraCms\Model\Partial;
+use Flynsarmy\OrchestraCms\Models\Partial;
 
 /**
  * Add @partial('foo') command. Same syntax as @include
