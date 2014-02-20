@@ -16,7 +16,7 @@ class PageController extends Controller
      */
     public function show()
     {
-        $params = App::make('router')->getCurrentRoute()->getParameters();
+        $params = App::make('router')->getCurrentRoute()->parameters();
         $slug   = '/'.array_get($params, 'slug');
 
         $page = $this->getRequestedContent($slug);

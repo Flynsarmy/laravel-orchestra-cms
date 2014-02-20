@@ -11,7 +11,7 @@ directly.
 
 ### Installation
 
-1. Install [Orchestra Platform][1] version `2.0.x`
+1. Install [Orchestra Platform][1] version `2.1.x`
 1. Add the following to composer.json:
 
         "repositories": [
