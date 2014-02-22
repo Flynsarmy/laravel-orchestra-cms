@@ -12,24 +12,34 @@ class StoryTellerTest extends TestCase
 
         // Slug test
         $model = (object)array('id'=>1, 'slug'=>'/foo');
-        Assert::equals(Story::permalink($model), handles("flynsarmy/orchestra-cms::/foo"));
+        $actual = Story::permalink($model);
+        $expected = handles("flynsarmy/orchestra-cms::/foo");
+        Assert::equals($expected, $actual);
 
         // Nested slug test
         $model = (object)array('id'=>1, 'slug'=>'/foo/bar');
-        Assert::equals(Story::permalink($model), handles("flynsarmy/orchestra-cms::/foo/bar"));
+        $actual = Story::permalink($model);
+        $expected = handles("flynsarmy/orchestra-cms::/foo/bar");
+        Assert::equals($expected, $actual);
 
         // Strip suffix slash test
         $model = (object)array('id'=>1, 'slug'=>'/foo/bar/');
-        Assert::equals(Story::permalink($model), handles("flynsarmy/orchestra-cms::/foo/bar"));
+        $actual = Story::permalink($model);
+        $expected = handles("flynsarmy/orchestra-cms::/foo/bar");
+        Assert::equals($expected, $actual);
 
         // ID test
         $this->app['config']->set("flynsarmy/orchestra-cms::permalink", "{id}");
         $model = (object)array('id'=>1, 'slug'=>'/foo/bar/');
-        Assert::equals(Story::permalink($model), handles("flynsarmy/orchestra-cms::/1"));
+        $actual = Story::permalink($model);
+        $expected = handles("flynsarmy/orchestra-cms::/1");
+        Assert::equals($expected, $actual);
 
         // ID and slug test
         $this->app['config']->set("flynsarmy/orchestra-cms::permalink", "{id}/{slug}");
         $model = (object)array('id'=>1, 'slug'=>'/foo/bar');
-        Assert::equals(Story::permalink($model), handles("flynsarmy/orchestra-cms::/1/foo/bar"));
+        $actual = Story::permalink($model);
+        $expected = handles("flynsarmy/orchestra-cms::/1/foo/bar");
+        Assert::equals($expected, $actual);
     }
 }

@@ -8,27 +8,33 @@ class HelpersTest extends TestCase
     public function testSortContentsByLink()
     {
         // Initial URL test
-        $url = sort_contents_by_link('pages', 'title', 'asc');
-        Assert::equals($url, resources("orchestra-cms.pages?sortBy=title&order=asc"));
+        $actual = sort_contents_by_link('pages', 'title', 'asc');
+        $expected = resources("orchestra-cms.pages?sortBy=title&order=asc");
+        Assert::equals($actual, $expected);
 
         // Test content_type param
-        $url = sort_contents_by_link('templates', 'title', 'asc');
-        Assert::equals($url, resources("orchestra-cms.templates?sortBy=title&order=asc"));
+        $actual = sort_contents_by_link('templates', 'title', 'asc');
+        $expected = resources("orchestra-cms.templates?sortBy=title&order=asc");
+        Assert::equals($actual, $expected);
 
         // Test sortBy param
-        $url = sort_contents_by_link('pages', 'slug', 'asc');
-        Assert::equals($url, resources("orchestra-cms.pages?sortBy=slug&order=asc"));
+        $actual = sort_contents_by_link('pages', 'slug', 'asc');
+        $expected = resources("orchestra-cms.pages?sortBy=slug&order=asc");
+        Assert::equals($actual, $expected);
 
         // Test order param
-        $url = sort_contents_by_link('pages', 'title', 'desc');
-        Assert::equals($url, resources("orchestra-cms.pages?sortBy=title&order=desc"));
+        $actual = sort_contents_by_link('pages', 'title', 'desc');
+        $expected = resources("orchestra-cms.pages?sortBy=title&order=desc");
+        Assert::equals($actual, $expected);
 
         // Test overwritten params
-        $url = sort_contents_by_link('pages', 'title', 'asc', array('sortBy' => 'foo'));
-        Assert::equals($url, resources("orchestra-cms.pages?sortBy=title&order=asc"));
+        $actual = sort_contents_by_link('pages', 'title', 'asc', array('sortBy' => 'foo'));
+        $expected = resources("orchestra-cms.pages?sortBy=title&order=asc");
+        Assert::equals($actual, $expected);
 
         // Test extra params
-        $url = sort_contents_by_link('pages', 'title', 'asc', array('foo' => 'bar'));
-        Assert::equals($url, resources("orchestra-cms.pages?foo=bar&sortBy=title&order=asc"));
+        $actual = sort_contents_by_link('pages', 'title', 'asc', array('foo' => 'bar'));
+        $expected = resources("orchestra-cms.pages?foo=bar&sortBy=title&order=asc");
+        Assert::equals($actual, $expected);
     }
 }

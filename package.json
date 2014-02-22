@@ -1,13 +1,13 @@
 {
   "devDependencies": {
-    "gulp": "~3.5.0",
-    "gulp-notify": "~0.3.2",
-    "gulp-autoprefixer": "0.0.4",
-    "gulp-ruby-sass": "~0.2.0",
-    "gulp-uglify": "~0.1.0",
-    "gulp-jshint": "~1.3.4",
+    "gulp": "~3.5.2",
+    "gulp-notify": "~1.0.0-beta",
+    "gulp-autoprefixer": "0.0.6",
+    "gulp-ruby-sass": "~0.3.1",
+    "gulp-uglify": "~0.2.1",
+    "gulp-jshint": "~1.4.2",
     "gulp-csslint": "~0.1.3",
-    "gulp-util": "~2.2.13",
+    "gulp-util": "~2.2.14",
     "gulp-bower": "0.0.2"
   }
 }
