@@ -1,4 +1,5 @@
 var gulp = require('gulp'),
+	plumber = require('gulp-plumber'),
 	autoprefixer = require('gulp-autoprefixer'),
 	notify = require('gulp-notify'),
 	sass = require('gulp-ruby-sass'),
@@ -7,8 +8,7 @@ var gulp = require('gulp'),
 	bower = require('gulp-bower'),
 	csslint = require('gulp-csslint'),
 	gutil = require('gulp-util'),
-	exec = require('child_process').exec,
-	sys = require('sys');
+	phpunit = require('gulp-phpunit');
 
 // My asset directories
 var sassFiles = 'assets/sass/**/*.scss',
@@ -24,14 +24,17 @@ var sassFiles = 'assets/sass/**/*.scss',
 // CSS
 gulp.task('css', function() {
 	return gulp.src(sassFiles)
-		.pipe(sass({ style: 'compressed' }).on('error', gutil.log))
+		.pipe(plumber())
+		.pipe(sass({ style: 'compressed' }).on('error', gutil.log).on('error', notify.onError({
+			title: "Failed compiling SASS!",
+			message: "<%= error.message %>"
+		})))
 		.pipe(csslint({
 			'adjoining-classes': false // This only affects <= IE6
 		}))
 		.pipe(csslint.reporter())
 		.pipe(autoprefixer('last 10 versions', 'ie 8'))
-		.pipe(gulp.dest(targetCSSDir))
-		.pipe(notify({ message: 'CSS all done, master!' }));
+		.pipe(gulp.dest(targetCSSDir));
 });
 
 // Javascript
@@ -40,19 +43,21 @@ gulp.task('js', function() {
 		.pipe(jshint())
 		.pipe(jshint.reporter('default'))
 		.pipe(uglify())
-		.pipe(gulp.dest(targetJSDir))
-		.pipe(notify({ message: 'JS all done, master!' }));
+		.pipe(gulp.dest(targetJSDir));
 });
 gulp.task('bower', function() {
 	bower()
-    	.pipe(gulp.dest(targetBowerDir));
+		.pipe(gulp.dest(targetBowerDir));
 });
 
 // Unit tests
 gulp.task('phpunit', function() {
-	exec('phpunit', function(error, stdout) {
-		sys.puts(stdout);
-	});
+	var options = {debug: false, notify: true};
+	gulp.src('tests/**/*.php')
+		.pipe(phpunit('phpunit', options)).on('error', notify.onError({
+			title: "Failed Tests!",
+			message: "Error(s) occurred during testing..."
+		}));
 });
 
 // Watch for changes and recompile
