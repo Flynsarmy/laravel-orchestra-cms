@@ -10,11 +10,4 @@ class Partial extends CmsModel
      * @var string
      */
     protected $table = 'orchestra_cms_partials';
-
-    /**
-     * The folder in our public theme directory all views will be saved into
-     *
-     * @var string
-     */
-    protected $view_base_path = 'partials';
 }

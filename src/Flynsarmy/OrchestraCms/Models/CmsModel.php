@@ -12,7 +12,7 @@ use Orchestra\Theme;
 
 class CmsModel extends Eloquent
 {
-    protected $guarded = ['created_at', 'content_path'];
+    protected $guarded = ['created_at', 'content_dir'];
 
     /**
      * The folder in our public theme directory all views will be saved into
@@ -63,10 +63,9 @@ class CmsModel extends Eloquent
         if ( $this->content_string === null )
         {
             // View file exists. Grab contents
-            if ( $this->content_path )
+            if ( $this->content_dir )
                 try {
-                    $abs_path = $this->storage()->abs_path( $this->content_path );
-                    $file_path = $abs_path . '/content.blade.php';
+                    $file_path = $this->storage()->abs_path('content.blade.php');
 
                     $this->content_string = File::get( $file_path );
                 }
@@ -90,16 +89,14 @@ class CmsModel extends Eloquent
     public function storage()
     {
         if ( !$this->_storage_provider )
-            $this->_storage_provider = new FileContentStorage(Theme::getTheme(), $this->view_base_path);
+            $this->_storage_provider = new FileContentStorage($this, Theme::getTheme());
 
         return $this->_storage_provider;
     }
 
-    public function set_content_path()
+    public function set_unique_content_dir()
     {
-        $slug = Str::slug($this->title);
-
-        $this->content_path = $this->storage()->unique_rel_path($slug);
+        $this->content_dir = $this->storage()->unique_content_dir();
     }
 
     /**

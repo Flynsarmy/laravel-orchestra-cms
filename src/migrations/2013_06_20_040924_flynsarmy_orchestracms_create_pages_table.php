@@ -22,7 +22,7 @@ class FlynsarmyOrchestracmsCreatePagesTable extends Migration
             $table->string('title');
             $table->string('slug');
             $table->text('description');
-            $table->string('content_path');
+            $table->string('content_dir');
             $table->string('meta_description');
             $table->string('meta_keywords');
 

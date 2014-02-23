@@ -24,8 +24,7 @@ Blade::extend(function($blade_string) {
 
         if ( $partial )
         {
-            $view_path = $partial->storage()->view_path($partial->content_path);
-            $view = $view_path.'.content';
+            $view = $partial->storage()->view_path('content');
             $to = sprintf($replace, $matches[1][$key], $view, $matches[3][$key]);
         }
         else
@@ -38,6 +37,6 @@ Blade::extend(function($blade_string) {
 });
 
 Blade::extend(function($blade_string) {
-    $replace = '<?php echo $__env->make($page->storage()->view_path($page->content_path).\'.content\', array_except(get_defined_vars(), array(\'__data\', \'__path\')))->render(); ?>';
+    $replace = '<?php echo $__env->make($page->storage()->view_path(\'content\'), array_except(get_defined_vars(), array(\'__data\', \'__path\')))->render(); ?>';
     return str_replace('@page()', $replace, $blade_string);
 });

@@ -13,13 +13,6 @@ class Page extends CmsModel
     protected $table = 'orchestra_cms_pages';
 
     /**
-     * The folder in our public theme directory all views will be saved into
-     *
-     * @var string
-     */
-    protected $view_base_path = 'pages';
-
-    /**
      * Belongs to relationship with Template.
      */
     public function template()

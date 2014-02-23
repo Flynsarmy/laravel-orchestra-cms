@@ -12,13 +12,6 @@ class Template extends CmsModel
     protected $table = 'orchestra_cms_templates';
 
     /**
-     * The folder in our public theme directory all views will be saved into
-     *
-     * @var string
-     */
-    protected $view_base_path = 'templates';
-
-    /**
      * Belongs to relationship with Template.
      */
     public function pages()

@@ -18,7 +18,7 @@ class FlynsarmyOrchestracmsCreateTemplatesTable extends Migration
             $table->integer('user_id')->references('id')->on('users');
             $table->string('title');
             $table->text('description');
-            $table->string('content_path');
+            $table->string('content_dir');
 
             $table->timestamps();
 
