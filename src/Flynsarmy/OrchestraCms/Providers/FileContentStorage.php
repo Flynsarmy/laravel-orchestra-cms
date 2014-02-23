@@ -71,7 +71,7 @@ class FileContentStorage implements ContentStorage {
         $unique_content_dir = $content_dir;
 
         $i = 0;
-        while ( File::isDirectory($this->rel_dir().'/'.$unique_content_dir) )
+        while ( File::isDirectory($this->theme_path().'/'.$this->content_type_dir().'/'.$unique_content_dir) )
             $unique_content_dir = $content_dir . '-' . ++$i;
 
 
@@ -131,5 +131,58 @@ class FileContentStorage implements ContentStorage {
         $rel_path = $this->rel_path( $file_path );
 
         return 'flynsarmy/orchestra-cms::' . str_replace('/', '.', $rel_path);
+    }
+
+    /**
+     * Deletes this models content directory
+     *
+     * @return bool
+     */
+    public function delete()
+    {
+        $file_path = $this->abs_path( 'content' );
+        $path = dirname($file_path);
+
+        return File::deleteDirectory($path);
+    }
+
+    /**
+     * Save content to a given file
+     *
+     * @param  string $file_path Path relative to models content dir
+     * @param  string $content
+     *
+     * @return void
+     */
+    public function put( $file_path, $content )
+    {
+        if ( !$this->model->content_dir )
+            throw new \Exception("Model has no content directory set.");
+
+        $file_path = $this->abs_path( $file_path );
+        $abs_path = dirname($file_path);
+
+        if ( !File::isDirectory($abs_path) )
+            File::makeDirectory($abs_path, 0777, true);
+
+        File::put($file_path, $this->model->content);
+    }
+
+    /**
+     * Grab the contents of a given file
+     *
+     * @param  string $file_path Path relative to models content dir
+     * @param  string $default
+     *
+     * @return mixed
+     */
+    public function get( $file_path, $default=NULL )
+    {
+        $file_path = $this->abs_path( $file_path );
+
+        if ( !File::exists($file_path) )
+            return $default;
+
+        return File::get($file_path);
     }
 }
