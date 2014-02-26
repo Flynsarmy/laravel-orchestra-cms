@@ -7,18 +7,21 @@ var gulp = require('gulp'),
 	jshint = require('gulp-jshint'),
 	bower = require('gulp-bower'),
 	csslint = require('gulp-csslint'),
+	imagemin = require('gulp-imagemin'),
 	gutil = require('gulp-util'),
 	phpunit = require('gulp-phpunit');
 
 // My asset directories
 var sassFiles = 'assets/sass/**/*.scss',
 	jsFiles = 'assets/js/**/*.js',
+	imgFiles = 'assets/img/**/*.{png,gif,jpg,jpeg}',
 	bowerFile = './bower.json',
 	phpFiles = ['src/**/*.php', 'tests/**/*.php'];
 	// Compiled asset directories
 	targetAssetDir = 'public',
 	targetCSSDir = targetAssetDir+'/css',
 	targetJSDir = targetAssetDir+'/js',
+	targetImgDir = targetAssetDir+'/img',
 	targetBowerDir = targetAssetDir+'/vendor';
 
 // CSS
@@ -50,6 +53,13 @@ gulp.task('bower', function() {
 		.pipe(gulp.dest(targetBowerDir));
 });
 
+// Images
+gulp.task('images', function () {
+	return gulp.src(imgFiles)
+		.pipe(imagemin())
+		.pipe(gulp.dest(targetImgDir));
+});
+
 // Unit tests
 gulp.task('phpunit', function() {
 	var options = {debug: false, notify: true};
@@ -65,7 +75,8 @@ gulp.task('watch', function() {
 	gulp.watch(sassFiles, ['css']);
 	gulp.watch(jsFiles, ['js']);
 	gulp.watch(bowerFile, ['bower']);
+	gulp.watch(imgFiles, ['images']);
 	gulp.watch(phpFiles, ['phpunit']);
 });
 
-gulp.task('default', ['css', 'js', 'bower', 'phpunit', 'watch']);
+gulp.task('default', ['css', 'js', 'bower', 'images', 'phpunit', 'watch']);
