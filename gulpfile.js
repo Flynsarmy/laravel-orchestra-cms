@@ -1,15 +1,8 @@
 var gulp = require('gulp'),
-	plumber = require('gulp-plumber'),
-	autoprefixer = require('gulp-autoprefixer'),
-	notify = require('gulp-notify'),
-	sass = require('gulp-ruby-sass'),
-	uglify = require('gulp-uglify'),
-	jshint = require('gulp-jshint'),
-	bower = require('gulp-bower'),
-	csslint = require('gulp-csslint'),
-	imagemin = require('gulp-imagemin'),
-	gutil = require('gulp-util'),
-	phpunit = require('gulp-phpunit');
+	gulpLoadPlugins = require("gulp-load-plugins"),
+	$ = gulpLoadPlugins({
+		lazy: false, // whether the plugins should be lazy loaded on demand
+	});
 
 // My asset directories
 var sassFiles = 'assets/sass/**/*.scss',
@@ -27,36 +20,49 @@ var sassFiles = 'assets/sass/**/*.scss',
 // CSS
 gulp.task('css', function() {
 	return gulp.src(sassFiles)
-		.pipe(plumber())
-		.pipe(sass({ style: 'compressed' }).on('error', gutil.log).on('error', notify.onError({
+		.pipe($.plumber())
+		.pipe($.rubySass({ style: 'compressed' }).on('error', $.util.log).on('error', $.notify.onError({
 			title: "Failed compiling SASS!",
 			message: "<%= error.message %>"
 		})))
-		.pipe(csslint({
+		.pipe($.csslint({
 			'adjoining-classes': false // This only affects <= IE6
 		}))
-		.pipe(csslint.reporter())
-		.pipe(autoprefixer('last 10 versions', 'ie 8'))
+		.pipe($.csslint.reporter())
+		.pipe($.autoprefixer('last 10 versions', 'ie 8'))
+		.pipe($.size({
+			showFiles: true
+		}))
 		.pipe(gulp.dest(targetCSSDir));
 });
 
 // Javascript
 gulp.task('js', function() {
 	return gulp.src(jsFiles)
-		.pipe(jshint())
-		.pipe(jshint.reporter('default'))
-		.pipe(uglify())
+		.pipe($.jshint())
+		.pipe($.jshint.reporter('default'))
+		.pipe($.uglify())
+		.pipe($.size({
+			showFiles: true
+		}))
 		.pipe(gulp.dest(targetJSDir));
 });
 gulp.task('bower', function() {
-	bower()
+	$.bower()
 		.pipe(gulp.dest(targetBowerDir));
 });
 
 // Images
 gulp.task('images', function () {
 	return gulp.src(imgFiles)
-		.pipe(imagemin())
+		.pipe($.cache($.imagemin({
+			optimizationLevel: 3,
+			progressive: true,
+			interlaced: true
+        })))
+		.pipe($.size({
+			showFiles: true
+		}))
 		.pipe(gulp.dest(targetImgDir));
 });
 
@@ -64,7 +70,7 @@ gulp.task('images', function () {
 gulp.task('phpunit', function() {
 	var options = {debug: false, notify: true};
 	gulp.src('tests/**/*.php')
-		.pipe(phpunit('phpunit', options)).on('error', notify.onError({
+		.pipe($.phpunit('phpunit', options)).on('error', $.notify.onError({
 			title: "Failed Tests!",
 			message: "Error(s) occurred during testing..."
 		}));
