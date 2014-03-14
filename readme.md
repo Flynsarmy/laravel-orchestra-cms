@@ -1,5 +1,6 @@
 ## Orchestra CMS
 
+[![Build Status](https://travis-ci.org/Flynsarmy/laravel-orchestra-cms.png?branch=master)](https://travis-ci.org/Flynsarmy/laravel-orchestra-cms)
 
 ### A simple and intuitive CMS for Orchestra Platform
 
