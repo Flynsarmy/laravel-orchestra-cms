@@ -1,7 +1,7 @@
 <?php namespace Flynsarmy\OrchestraCms\Tests\Unit\Providers;
 
 use App;
-use TestCase;
+use Flynsarmy\OrchestraCms\Tests\TestCase;
 use Way\Tests\Assert;
 use Mockery;
 use Flynsarmy\OrchestraCms\Providers\FileContentStorage;

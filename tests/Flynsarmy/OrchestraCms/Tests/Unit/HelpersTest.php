@@ -1,6 +1,6 @@
 <?php namespace Flynsarmy\OrchestraCms\Tests\Unit;
 
-use TestCase;
+use Flynsarmy\OrchestraCms\Tests\TestCase;
 use Way\Tests\Assert;
 
 class HelpersTest extends TestCase
